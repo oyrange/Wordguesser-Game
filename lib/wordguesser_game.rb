@@ -6,7 +6,7 @@ class WordGuesserGame
     @word = word
     @guesses = ''
     @wrong_guesses = ''
-    @indices_guesses_hash = Hash.new
+    @guesses_indices_hash = Hash.new
   end
 
   def guesses_hash letter
@@ -14,9 +14,8 @@ class WordGuesserGame
     @word.each_char.with_index do |char, i|
       indices << i if char == letter
     end
-    @indices_guesses_hash[letter] = indices
+    @guesses_indices_hash[letter] = indices
   end
-
 
   def guess letter
     unless !letter.nil? && !letter.empty? && letter.scan(/[^A-Za-z]/).empty?
@@ -29,22 +28,32 @@ class WordGuesserGame
     end
 
     unless @word.include?(letter)
-      @wrong_guesses = letter
+      @wrong_guesses += letter
       return 'Letter not in word. Try again.'
     end
-    @guesses = @guesses + letter
+    @guesses += letter
     self.guesses_hash letter
   end
 
-
   def word_with_guesses
     display_string = '-' * @word.length
-    @indices_guesses_hash.each do |letter, index_set |
+    @guesses_indices_hash.each do |letter, index_set |
       index_set.each do |i|
         display_string[i] = letter
       end
     end
     display_string
+  end
+
+  def check_win_or_lose
+    if wrong_guesses.length > 6
+      return :lose
+    elsif @word.chars.all? { |char| @guesses_indices_hash.keys.include?(char) }
+      :win
+    else
+      :play
+    end
+
   end
 
 
@@ -73,12 +82,12 @@ glorp = WordGuesserGame.new('glorp')
 puts glorp.word
 
 
-game = WordGuesserGame.new('banana')
-valid = game.guess('a')
-guess = game.guesses
-wrong_guess = game.wrong_guesses
-# test = game.guess(nil)   ## this should error if working properly
-game.guess('b')
-game.guess('y')
-game.word_with_guesses
-1
+# game = WordGuesserGame.new('sparkling')
+# valid = game.guess('a')
+# guess = game.guesses
+# wrong_guess = game.wrong_guesses
+# # test = game.guess(nil)   ## this should error if working properly
+# game.guess('b')
+# game.guess('y')
+# game.word_with_guesses
+# 1
