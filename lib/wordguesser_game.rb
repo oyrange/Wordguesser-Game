@@ -53,7 +53,6 @@ class WordGuesserGame
     else
       :play
     end
-
   end
 
 
@@ -78,8 +77,8 @@ end
 
 
 
-glorp = WordGuesserGame.new('glorp')
-puts glorp.word
+# glorp = WordGuesserGame.new('glorp')
+# puts glorp.word
 
 
 # game = WordGuesserGame.new('sparkling')
