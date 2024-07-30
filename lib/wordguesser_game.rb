@@ -1,5 +1,7 @@
 require 'set'
 
+## test using: bundle exec autotest
+
 class WordGuesserGame
   attr_reader :word, :guesses, :wrong_guesses
   def initialize(word)
