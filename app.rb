@@ -2,6 +2,9 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require_relative './lib/wordguesser_game.rb'
 
+## run all Sinatra scenarios from CLI: bundle exec cucumber features/
+## run app server from CLI: bundle exec rerun -- rackup --port 3000 --host 0.0.0.0
+
 class WordGuesserApp < Sinatra::Base
 
   enable :sessions
